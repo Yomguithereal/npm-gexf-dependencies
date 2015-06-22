@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -44,7 +45,9 @@ function main(str) {
         node = {
           id: graph.nodes.length,
           label: name,
-          level: level
+          attributes: {
+            level: level
+          }
         };
         graph.nodes.push(node);
       } else {
@@ -76,7 +79,20 @@ function main(str) {
 
   recur(graph.nodes[0], json.dependencies, 0);
 
-  console.log(graph);
+  // Building the gexf file
+  var doc = _gexf2['default'].create({
+    model: {
+      node: [{
+        id: 'level',
+        title: 'Level',
+        type: 'integer'
+      }]
+    },
+    nodes: graph.nodes,
+    edges: graph.edges
+  });
+
+  console.log(doc.serialize());
 }
 
 // Reading from stdin

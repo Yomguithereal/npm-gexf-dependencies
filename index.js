@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import stdin from 'stdin';
 import gexf from 'gexf';
 import _ from 'lodash';
