@@ -1,0 +1,31 @@
+{
+  "name": "npm-gexf-dependencies",
+  "version": "1.0.0",
+  "description": "Basic tool for converting the results of npm ls --json into a gexf file.",
+  "main": "build.js",
+  "bin": {
+    "npm-gexf-dependencies": "./build.js"
+  },
+  "scripts": {
+    "build": "babel ./index.js > ./build.js",
+    "test": "npm ls --json | babel-node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yomguithereal/npm-gexf-dependencies"
+  },
+  "author": "yomguithereal <kropotkinepiotr@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yomguithereal/npm-gexf-dependencies/issues"
+  },
+  "homepage": "https://github.com/Yomguithereal/npm-gexf-dependencies",
+  "dependencies": {
+    "gexf": "^0.2.5",
+    "lodash": "^3.9.3",
+    "stdin": "0.0.1"
+  },
+  "devDependencies": {
+    "babel": "^5.6.3"
+  }
+}
