@@ -21,17 +21,18 @@ function main(str) {
     edges: []
   };
 
-  const edgesIndex = {};
+  const nodesIndex = {},
+        edgesIndex = {};
 
   // Reading the dependencies
   function recur(parentNode, deps, level) {
 
     _(deps)
       .forIn((data, name) => {
-        let node;
+        let node = nodesIndex[name];
 
         // Adding the node if it does not exist yet
-        if (!graph.nodes[name]) {
+        if (!node) {
           node = {
             id: graph.nodes.length,
             label: name,
@@ -40,14 +41,15 @@ function main(str) {
             }
           };
           graph.nodes.push(node);
-        }
-        else {
-          node = graph.nodes[name];
+          nodesIndex[name] = node;
         }
 
         // Adding edge
-        if (!edgesIndex[parentNode.name + name] &&
-            !edgesIndex[name + parentNode.name]) {
+        const key1 = parentNode.name + '||' + name,
+              key2 = name + '||' + parentNode.name;
+
+        if (!edgesIndex[key1] &&
+            !edgesIndex[key2]) {
 
           const edge = {
             id: graph.edges.length,
@@ -56,13 +58,13 @@ function main(str) {
             weight: 1
           };
 
-          edgesIndex[parentNode.name + name] = edge;
-          edgesIndex[name + parentNode.name] = edge;
+          edgesIndex[key1] = edge;
+          edgesIndex[key2] = edge;
 
           graph.edges.push(edge);
         }
         else {
-          edgesIndex[parentNode.name + name].weight++;
+          edgesIndex[key1].weight++;
         }
 
         // Need to recur?
