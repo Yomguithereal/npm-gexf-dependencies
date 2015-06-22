@@ -8,6 +8,8 @@
   },
   "scripts": {
     "build": "babel ./index.js > ./build.js && chmod +x ./build.js",
+    "postinstall": "npm run build",
+    "prepublish": "npm run build && node ./index.js",
     "test": "npm ls --json | babel-node ./index.js"
   },
   "repository": {
